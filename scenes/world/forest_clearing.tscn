@@ -1,0 +1,334 @@
+[gd_scene load_steps=9 format=3 uid="uid://forest_clearing_v1"]
+
+[ext_resource type="Texture2D" path="res://assets/background/layer_0_sky.png" id="1_sky"]
+[ext_resource type="Texture2D" path="res://assets/background/layer_1_mountains.png" id="2_mtn"]
+[ext_resource type="Texture2D" path="res://assets/background/layer_2_forest_far.png" id="3_far"]
+[ext_resource type="Texture2D" path="res://assets/background/layer_3_ruins.png" id="4_ruins"]
+[ext_resource type="Texture2D" path="res://assets/background/layer_4_trees.png" id="5_trees"]
+[ext_resource type="Texture2D" path="res://assets/background/layer_5_river_rocks.png" id="6_river"]
+[ext_resource type="Texture2D" path="res://assets/background/layer_6_foreground.png" id="7_fg"]
+
+[node name="ForestClearing" type="Node2D"]
+
+# ---- PARALLAX BACKDROP (premium multi-layer) ----
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_base_offset = Vector2(0, 0)
+scroll_ignore_camera_zoom = true
+
+[node name="L0_Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.02, 0.02)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sky" type="Sprite2D" parent="ParallaxBackground/L0_Sky"]
+position = Vector2(960, 460)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("1_sky")
+
+[node name="L1_Mountains" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.07, 0.07)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Mtn" type="Sprite2D" parent="ParallaxBackground/L1_Mountains"]
+position = Vector2(960, 520)
+texture = ExtResource("2_mtn")
+
+[node name="L2_ForestFar" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.14, 0.08)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="ForestFar" type="Sprite2D" parent="ParallaxBackground/L2_ForestFar"]
+position = Vector2(960, 560)
+texture = ExtResource("3_far")
+modulate = Color(1, 1, 1, 0.98)
+
+[node name="L3_Ruins" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.28, 0.1)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Ruins" type="Sprite2D" parent="ParallaxBackground/L3_Ruins"]
+position = Vector2(960, 560)
+scale = Vector2(1.02, 1.02)
+texture = ExtResource("4_ruins")
+modulate = Color(1, 1, 1, 0.93)
+
+[node name="L4_Trees" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.45, 0.12)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Trees" type="Sprite2D" parent="ParallaxBackground/L4_Trees"]
+position = Vector2(960, 560)
+texture = ExtResource("5_trees")
+modulate = Color(1, 1, 1, 0.96)
+
+# Ambient fog overlay
+[node name="Fog" type="ColorRect" parent="."]
+z_index = 5
+color = Color(0.55, 0.78, 0.82, 0.048)
+offset_left = -4000.0
+offset_top = -2000.0
+offset_right = 4000.0
+offset_bottom = 2000.0
+mouse_filter = 2
+
+# Light rays
+[node name="LightRays" type="GPUParticles2D" parent="."]
+z_index = 4
+position = Vector2(400, 60)
+emitting = true
+amount = 12
+lifetime = 6.0
+process_material = SubResource("GPUParticles2D_process_material_1")
+texture = SubResource("GradientTexture2D_light")
+
+[node name="LightRays2" type="GPUParticles2D" parent="."]
+z_index = 4
+position = Vector2(1380, 40)
+emitting = true
+amount = 10
+lifetime = 6.5
+process_material = SubResource("GPUParticles2D_process_material_1")
+
+# Fireflies ambient
+[node name="Fireflies" type="CPUParticles2D" parent="."]
+z_index = 10
+position = Vector2(960, 520)
+emitting = true
+amount = 55
+lifetime = 7.0
+preprocess = 3.5
+speed_scale = 0.9
+explosiveness = 0.0
+randomness = 0.75
+emission_shape = 1
+emission_rect_extents = Vector2(1600, 420)
+direction = Vector2(0, -0.15)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 18.0
+initial_velocity_max = 42.0
+angular_velocity_min = -30.0
+angular_velocity_max = 30.0
+scale_amount_min = 1.0
+scale_amount_max = 2.2
+color = Color(0.5, 1, 0.88, 0.78)
+color_ramp {
+0.0 = Color(0.4, 1, 0.9, 0)
+0.3 = Color(0.6, 1, 0.92, 0.95)
+0.7 = Color(0.5, 1, 0.88, 0.75)
+1.0 = Color(0.4, 0.95, 0.82, 0)
+}
+
+# Falling leaves
+[node name="Leaves" type="CPUParticles2D" parent="."]
+z_index = 12
+position = Vector2(960, -80)
+emitting = true
+amount = 24
+lifetime = 9.0
+preprocess = 4.0
+emission_shape = 1
+emission_rect_extents = Vector2(1700, 20)
+direction = Vector2(0.3, 1)
+spread = 25.0
+gravity = Vector2(15, 20)
+initial_velocity_min = 22.0
+initial_velocity_max = 48.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+tangential_accel_min = -15.0
+tangential_accel_max = 15.0
+scale_amount_min = 2.0
+scale_amount_max = 3.2
+color = Color(0.38, 0.55, 0.35, 0.72)
+
+# ---- GAMEPLAY TERRAIN ----
+[node name="Terrain" type="Node2D" parent="."]
+
+# Main ground - long polished forest floor
+[node name="GroundMain" type="StaticBody2D" parent="Terrain"]
+position = Vector2(960, 820)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/GroundMain"]
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="GroundVisual" type="Polygon2D" parent="Terrain/GroundMain"]
+color = Color(0.16, 0.28, 0.24, 1)
+polygon = PackedVector2Array(-1700, -36, 1700, -36, 1700, 120, -1700, 120)
+
+[node name="MossTop" type="Polygon2D" parent="Terrain/GroundMain"]
+position = Vector2(0, -36)
+color = Color(0.22, 0.42, 0.32, 1)
+polygon = PackedVector2Array(-1700, -8, -1200, -14, -700, -6, -200, -12, 300, -7, 800, -13, 1300, -5, 1700, -10, 1700, 6, -1700, 6)
+
+# Left cliff
+[node name="CliffLeft" type="StaticBody2D" parent="Terrain"]
+position = Vector2(80, 740)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/CliffLeft"]
+shape = SubResource("RectangleShape2D_cliff")
+
+# Right elevated platform - mossy ruin
+[node name="RuinPlatform" type="StaticBody2D" parent="Terrain"]
+position = Vector2(1580, 700)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/RuinPlatform"]
+shape = SubResource("RectangleShape2D_ruin")
+
+[node name="RuinVisual" type="Polygon2D" parent="Terrain/RuinPlatform"]
+color = Color(0.24, 0.32, 0.34, 1)
+polygon = PackedVector2Array(-160, -22, 160, -22, 150, 26, -150, 26)
+
+[node name="RuinMoss" type="Polygon2D" parent="Terrain/RuinPlatform/RuinVisual"]
+color = Color(0.28, 0.52, 0.4, 1)
+polygon = PackedVector2Array(-160, -22, 160, -22, 150, -10, -150, -10)
+
+# Mid jump platform - fallen log / stone
+[node name="MidRock" type="StaticBody2D" parent="Terrain"]
+position = Vector2(980, 730)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/MidRock"]
+shape = SubResource("RectangleShape2D_mid")
+
+[node name="RockVisual" type="Polygon2D" parent="Terrain/MidRock"]
+color = Color(0.25, 0.3, 0.32, 1)
+polygon = PackedVector2Array(-90, -16, 90, -16, 80, 18, -80, 18)
+
+# Wooden bridge left area
+[node name="Bridge" type="StaticBody2D" parent="Terrain"]
+position = Vector2(520, 770)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/Bridge"]
+shape = SubResource("RectangleShape2D_bridge")
+
+[node name="BridgeVisual" type="Polygon2D" parent="Terrain/Bridge"]
+color = Color(0.38, 0.28, 0.2, 1)
+polygon = PackedVector2Array(-140, -8, 140, -8, 140, 6, -140, 6)
+
+# Left small step
+[node name="StepLeft" type="StaticBody2D" parent="Terrain"]
+position = Vector2(320, 790)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/StepLeft"]
+shape = SubResource("RectangleShape2D_step")
+
+# Decorative river visual (non-colliding, behind)
+[node name="RiverBG" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(960, 760)
+scale = Vector2(1.08, 0.62)
+modulate = Color(0.9, 1, 1, 0.95)
+texture = ExtResource("6_river")
+
+# Glowing plants
+[node name="GlowPlants" type="Node2D" parent="."]
+
+[node name="Glow1" type="PointLight2D" parent="GlowPlants"]
+position = Vector2(740, 788)
+color = Color(0.4, 1, 0.88, 1)
+energy = 1.2
+texture_scale = 1.8
+range_item_cull_mask = 1
+
+[node name="Glow2" type="PointLight2D" parent="GlowPlants"]
+position = Vector2(1210, 792)
+color = Color(0.45, 1, 0.82, 1)
+energy = 1.0
+texture_scale = 1.5
+
+[node name="Glow3" type="PointLight2D" parent="GlowPlants"]
+position = Vector2(1560, 670)
+color = Color(0.5, 0.9, 1, 1)
+energy = 0.9
+texture_scale = 1.6
+
+# World bounds
+[node name="WorldLimits" type="Node2D" parent="."]
+
+[node name="LeftWall" type="StaticBody2D" parent="WorldLimits"]
+position = Vector2(-820, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldLimits/LeftWall"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="RightWall" type="StaticBody2D" parent="WorldLimits"]
+position = Vector2(2740, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldLimits/RightWall"]
+shape = SubResource("RectangleShape2D_wall")
+
+# Foreground parallax - vignette plants
+[node name="Foreground" type="ParallaxBackground" parent="."]
+z_index = 20
+scroll_base_offset = Vector2(0, 0)
+scroll_ignore_camera_zoom = true
+
+[node name="FG" type="ParallaxLayer" parent="Foreground"]
+motion_scale = Vector2(1.35, 1.0)
+
+[node name="FGTex" type="TextureRect" parent="Foreground/FG"]
+modulate = Color(1, 1, 1, 0.72)
+layout_mode = 2
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 2120.0
+offset_bottom = 1180.0
+texture = ExtResource("7_fg")
+expand_mode = 1
+stretch_mode = 5
+
+# Camera limits helper
+[node name="CameraLimits" type="Node2D" parent="."]
+[node name="Left" type="Marker2D" parent="CameraLimits"]
+position = Vector2(120, 0)
+[node name="Right" type="Marker2D" parent="CameraLimits"]
+position = Vector2(1800, 0)
+[node name="Top" type="Marker2D" parent="CameraLimits"]
+position = Vector2(960, 120)
+[node name="Bottom" type="Marker2D" parent="CameraLimits"]
+position = Vector2(960, 900)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(3400, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cliff"]
+size = Vector2(180, 220)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ruin"]
+size = Vector2(320, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mid"]
+size = Vector2(180, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bridge"]
+size = Vector2(280, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_step"]
+size = Vector2(120, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(60, 1200)
+
+[sub_resource type="ParticleProcessMaterial" id="GPUParticles2D_process_material_1"]
+particle_flag_disable_z = true
+direction = Vector2(0, 1)
+spread = 7.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+angular_velocity_min = 0.0
+angular_velocity_max = 0.0
+scale_min = 3.0
+scale_max = 5.0
+color = Color(0.7, 0.95, 0.92, 0.075)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_light"]
+gradient = SubResource("Gradient_light")
+width = 32
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="Gradient" id="Gradient_light"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.8, 1, 0.95, 0.22, 0.6, 0.95, 0.9, 0.08, 0.6, 0.95, 0.9, 0)

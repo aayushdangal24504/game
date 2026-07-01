@@ -1,0 +1,344 @@
+[gd_scene load_steps=10 format=3 uid="uid://whisperwood_mainmenu_v3"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_menu"]
+[ext_resource type="Texture2D" path="res://assets/background/layer_0_sky.png" id="2_sky"]
+[ext_resource type="Texture2D" path="res://assets/background/layer_1_mountains.png" id="3_mtn"]
+[ext_resource type="Texture2D" path="res://assets/background/layer_2_forest_far.png" id="4_forest"]
+[ext_resource type="Texture2D" path="res://assets/background/layer_3_ruins.png" id="5_ruins"]
+[ext_resource type="Texture2D" path="res://assets/background/layer_4_trees.png" id="6_trees"]
+[ext_resource type="Texture2D" path="res://assets/ui/title_hero.png" id="7_hero"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.07, 0.145, 0.17, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.38, 0.78, 0.75, 0.65)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 28.0
+content_margin_top = 16.0
+content_margin_right = 28.0
+content_margin_bottom = 16.0
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 10
+shadow_offset = Vector2(0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(0.12, 0.28, 0.3, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 1, 0.93, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 28.0
+content_margin_top = 16.0
+content_margin_right = 28.0
+content_margin_bottom = 16.0
+shadow_color = Color(0.15, 0.8, 0.75, 0.3)
+shadow_size = 16
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+bg_color = Color(0.05, 0.18, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 1, 0.95, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+content_margin_left = 28.0
+content_margin_top = 16.0
+content_margin_right = 28.0
+content_margin_bottom = 16.0
+
+[node name="MainMenu" type="Node"]
+script = ExtResource("1_menu")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Sky" type="Sprite2D" parent="Background"]
+position = Vector2(960, 540)
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("2_sky")
+z_index = -10
+
+[node name="Mountains" type="Sprite2D" parent="Background"]
+position = Vector2(960, 620)
+texture = ExtResource("3_mtn")
+modulate = Color(1, 1, 1, 0.95)
+z_index = -9
+
+[node name="ForestFar" type="Sprite2D" parent="Background"]
+position = Vector2(960, 640)
+texture = ExtResource("4_forest")
+z_index = -8
+
+[node name="Ruins" type="Sprite2D" parent="Background"]
+position = Vector2(960, 680)
+texture = ExtResource("5_ruins")
+modulate = Color(1, 1, 1, 0.92)
+z_index = -7
+
+[node name="Trees" type="Sprite2D" parent="Background"]
+position = Vector2(960, 720)
+texture = ExtResource("6_trees")
+modulate = Color(1, 1, 1, 0.9)
+z_index = -6
+
+[node name="FirefliesBack" type="CPUParticles2D" parent="Background"]
+position = Vector2(960, 540)
+z_index = -5
+emitting = true
+amount = 35
+lifetime = 7.0
+randomness = 0.7
+emission_shape = 1
+emission_rect_extents = Vector2(960, 540)
+direction = Vector2(0, -0.15)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 15.0
+initial_velocity_max = 32.0
+scale_amount_min = 1.2
+scale_amount_max = 2.2
+color = Color(0.5, 1, 0.88, 0.65)
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="MainUI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Vignette" type="ColorRect" parent="UI/MainUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.06, 0.08, 0.22)
+mouse_filter = 2
+
+[node name="CenterBox" type="Control" parent="UI/MainUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -280.0
+offset_right = 340.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="UI/MainUI/CenterBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="UI/MainUI/CenterBox/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.86, 0.97, 0.94, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.1, 0.12, 0.85)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/shadow_outline_size = 14
+theme_override_font_sizes/font_size = 96
+text = "Whisperwood"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="UI/MainUI/CenterBox/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.6, 0.84, 0.8, 1)
+theme_override_font_sizes/font_size = 22
+text = "A dark fairytale — Milestone 1 Vertical Slice"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="UI/MainUI/CenterBox/VBox"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="UI/MainUI/CenterBox/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+custom_minimum_size = Vector2(300, 0)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_hover")
+focus_mode = 2
+text = "  Play  "
+
+[node name="LoadButton" type="Button" parent="UI/MainUI/CenterBox/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+custom_minimum_size = Vector2(300, 0)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_hover")
+focus_mode = 2
+disabled = true
+text = "Load Game"
+
+[node name="SettingsButton" type="Button" parent="UI/MainUI/CenterBox/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+custom_minimum_size = Vector2(300, 0)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_hover")
+focus_mode = 2
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="UI/MainUI/CenterBox/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+custom_minimum_size = Vector2(300, 0)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_hover")
+focus_mode = 2
+text = "Quit"
+
+[node name="Hero" type="TextureRect" parent="UI/MainUI"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_right = 0.0
+anchor_bottom = 0.5
+offset_left = 120.0
+offset_top = -300.0
+offset_right = 580.0
+offset_bottom = 300.0
+grow_vertical = 3
+mouse_filter = 2
+texture = ExtResource("7_hero")
+expand_mode = 1
+stretch_mode = 5
+modulate = Color(1, 1, 1, 0.97)
+
+[node name="VersionLabel" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -48.0
+offset_right = 900.0
+offset_bottom = -16.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.55, 0.75, 0.72, 0.9)
+theme_override_font_sizes/font_size = 16
+text = "Whisperwood • M1 v2c"
+
+[node name="SettingsPanel" type="PanelContainer" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -220.0
+offset_right = 300.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_btn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/SettingsPanel"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+theme_override_constants/separation = 14
+
+[node name="Label" type="Label" parent="UI/SettingsPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Settings"
+
+[node name="MusicLabel" type="Label" parent="UI/SettingsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicSlider" type="HSlider" parent="UI/SettingsPanel/VBoxContainer"]
+layout_mode = 2
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 0.85
+
+[node name="SFXLabel" type="Label" parent="UI/SettingsPanel/VBoxContainer"]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="SFXSlider" type="HSlider" parent="UI/SettingsPanel/VBoxContainer"]
+layout_mode = 2
+min_value = 0.0
+max_value = 1.0
+step = 0.01
+value = 0.9
+
+[node name="Fullscreen" type="CheckBox" parent="UI/SettingsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="CloseButton" type="Button" parent="UI/SettingsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Close"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+
+[node name="UIFX" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="Fireflies" type="CPUParticles2D" parent="UIFX"]
+position = Vector2(960, 540)
+emitting = true
+amount = 28
+lifetime = 6.5
+emission_shape = 1
+emission_rect_extents = Vector2(960, 540)
+direction = Vector2(0, -0.1)
+spread = 180.0
+initial_velocity_min = 12.0
+initial_velocity_max = 28.0
+scale_amount_min = 1.0
+scale_amount_max = 2.0
+color = Color(0.55, 1, 0.88, 0.6)

@@ -1,0 +1,40 @@
+# Godot 4+ specific ignores
+# .godot/ contains editor cache, import data - never commit
+.godot/
+
+# Mono specific - if using C#
+.mono/
+data_*/
+mono_crash.*
+
+# System / OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Editor
+*~
+*.tmp
+*.swp
+*~
+.vscode/
+.idea/
+*.import
+
+# Export builds
+exports/
+builds/
+*.pck
+*.zip
+*.exe
+*.apk
+*.dmg
+
+# User local settings
+user://
+settings.cfg

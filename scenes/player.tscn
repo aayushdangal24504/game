@@ -1,0 +1,142 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwhisperwood_player"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1"]
+radius = 14.0
+height = 36.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_player")
+collision_layer = 2
+collision_mask = 1
+motion_mode = 1
+up_direction = Vector2(0, -1)
+scale = Vector2(1.8, 1.8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_1")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Shadow" type="Polygon2D" parent="Visual"]
+position = Vector2(0, 28)
+color = Color(0, 0, 0, 0.25)
+polygon = PackedVector2Array(-16, 0, -10, 3, 10, 3, 16, 0)
+
+[node name="FootL" type="Polygon2D" parent="Visual"]
+position = Vector2(-6, 22)
+color = Color(0.29, 0.21, 0.16, 1)
+polygon = PackedVector2Array(-4, -3, 4, -3, 5, 3, -5, 3)
+
+[node name="FootR" type="Polygon2D" parent="Visual"]
+position = Vector2(6, 22)
+color = Color(0.29, 0.21, 0.16, 1)
+polygon = PackedVector2Array(-4, -3, 4, -3, 5, 3, -5, 3)
+
+[node name="Cloak" type="Polygon2D" parent="Visual"]
+position = Vector2(0, 4)
+color = Color(0.145, 0.38, 0.38, 1)
+polygon = PackedVector2Array(-18, -18, 18, -18, 22, 18, -22, 18)
+
+[node name="CloakTrim" type="Polygon2D" parent="Visual/Cloak"]
+color = Color(0.78, 0.84, 0.82, 0.9)
+polygon = PackedVector2Array(-18, -18, 18, -18, 16, -14, -16, -14)
+
+[node name="Body" type="Polygon2D" parent="Visual"]
+position = Vector2(0, 6)
+color = Color(0.22, 0.24, 0.3, 1)
+polygon = PackedVector2Array(-9, -10, 9, -10, 8, 12, -8, 12)
+
+[node name="Satchel" type="Polygon2D" parent="Visual"]
+position = Vector2(10, 8)
+color = Color(0.45, 0.32, 0.22, 1)
+polygon = PackedVector2Array(-4, -5, 4, -5, 5, 5, -5, 5)
+
+[node name="SatchelStrap" type="Line2D" parent="Visual"]
+width = 2.0
+default_color = Color(0.35, 0.25, 0.18, 1)
+points = PackedVector2Array(-7, -6, -2, -10, 8, 4)
+
+[node name="Head" type="Node2D" parent="Visual"]
+position = Vector2(0, -16)
+
+[node name="HeadBase" type="Polygon2D" parent="Visual/Head"]
+color = Color(0.95, 0.88, 0.82, 1)
+polygon = PackedVector2Array(-9, -8, -7, -11, 7, -11, 9, -8, 9, 6, -9, 6)
+
+[node name="Hood" type="Polygon2D" parent="Visual/Head"]
+position = Vector2(0, -2)
+color = Color(0.12, 0.32, 0.33, 1)
+polygon = PackedVector2Array(-13, -6, -10, -14, 0, -17, 10, -14, 13, -6, 10, 2, -10, 2)
+
+[node name="HoodGlow" type="Polygon2D" parent="Visual/Head/Hood"]
+color = Color(0.65, 0.9, 0.88, 0.22)
+polygon = PackedVector2Array(-10, -12, 10, -12, 8, -4, -8, -4)
+
+[node name="Hair" type="Polygon2D" parent="Visual/Head"]
+position = Vector2(0, -2)
+color = Color(0.88, 0.88, 0.92, 1)
+polygon = PackedVector2Array(-8, -8, 8, -8, 10, 4, -10, 4)
+
+[node name="FaceGlow" type="Polygon2D" parent="Visual/Head"]
+position = Vector2(0, 1)
+color = Color(0.55, 0.95, 0.92, 0.18)
+polygon = PackedVector2Array(-5, -3, 5, -3, 4, 3, -4, 3)
+
+[node name="Eyes" type="Node2D" parent="Visual/Head"]
+
+[node name="EyeL" type="Polygon2D" parent="Visual/Head/Eyes"]
+position = Vector2(-3.5, 0)
+color = Color(0.15, 0.25, 0.45, 1)
+polygon = PackedVector2Array(-1.5, -1, 1.5, -1, 1.5, 1, -1.5, 1)
+
+[node name="EyeR" type="Polygon2D" parent="Visual/Head/Eyes"]
+position = Vector2(3.5, 0)
+color = Color(0.15, 0.25, 0.45, 1)
+polygon = PackedVector2Array(-1.5, -1, 1.5, -1, 1.5, 1, -1.5, 1)
+
+[node name="HandL" type="Polygon2D" parent="Visual"]
+position = Vector2(-11, 5)
+color = Color(0.55, 0.88, 0.9, 0.95)
+polygon = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
+
+[node name="HandR" type="Polygon2D" parent="Visual"]
+position = Vector2(11, 5)
+color = Color(0.55, 0.88, 0.9, 0.95)
+polygon = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="LandingDust" type="CPUParticles2D" parent="."]
+position = Vector2(0, 24)
+emitting = false
+amount = 16
+lifetime = 0.45
+one_shot = true
+direction = Vector2(0, -1)
+spread = 80.0
+gravity = Vector2(0, 98)
+initial_velocity_min = 30.0
+initial_velocity_max = 70.0
+scale_amount_min = 1.5
+scale_amount_max = 2.5
+color = Color(0.7, 0.85, 0.82, 0.55)
+
+[node name="CameraTarget" type="Node2D" parent="."]
+position = Vector2(0, -10)
+
+[node name="GameCamera" type="Camera2D" parent="."]
+current = true
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.2
+drag_right_margin = 0.2
+drag_top_margin = 0.18
+drag_bottom_margin = 0.18
+limit_smoothed = true
+offset = Vector2(0, -40)
+zoom = Vector2(1, 1)
